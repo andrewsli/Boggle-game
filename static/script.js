@@ -16,7 +16,6 @@ async function handleFormSubmission(evt){
 
   updateGame(response.data, guessedWord);
 
-  return
 }
 
 $("#form").on("submit", handleFormSubmission)
@@ -25,17 +24,32 @@ $("#form").on("submit", handleFormSubmission)
 function updateGame(responseObj, guessedWord){
 
   wordStatus = responseObj.result;
+  updateMessage(wordStatus, guessedWord);
+  
+}
+
+/* Updates response message based on validity of guessed word
+   If word is valid, update score
+*/
+function updateMessage(wordStatus, guessedWord){
+  $("#response-message").text(responseMessages[wordStatus]);
 
   if (wordStatus === "ok"){
-    $("#response-message").text("Nice find!");
-    $("#validated-words").append(`<li>${guessedWord}</li>`);
-
-  } else if (wordStatus === "not-word"){
-    $("#response-message").text("Not a valid word, try again");
-
-  } else if (wordStatus === "not-on-board"){
-    $("#response-message").text("That word's not on the board, try again");
+    updateScore(guessedWord);
   }
-
-  return
 }
+
+/* updates score by adding word length */
+function updateScore(guessedWord){
+  let score = parseInt($("#score").text());
+  $("#score").text(score + guessedWord.length);
+}
+
+/* Object containing responses for various word guesses {word status: msg} */
+responseMessages = {"ok": "Nice find!",
+                    "not-word": "Not a valid word, try again.",
+                    "not-on-board": "That word's not on the board, try again."}
+
+
+
+

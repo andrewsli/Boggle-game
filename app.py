@@ -31,7 +31,6 @@ def handle_guess():
     - returns verdict as json
     """
     guessed_word = request.args["guess"] 
-    # write code to handle checking valid/finding guess
     verdict = boggle_game.check_valid_word(session["letters_board"], guessed_word)
     result = {"result": verdict}
     return jsonify(result)
