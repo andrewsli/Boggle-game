@@ -1,0 +1,5 @@
+
+/* Styling to hide elements. Used to hide guess form when counter counts down to 0 */
+.hidden{
+    display: none;
+}

@@ -1,7 +1,6 @@
 from boggle import Boggle
 from flask import Flask, request, render_template, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
-import unittest
 
 boggle_game = Boggle()
 
@@ -34,10 +33,3 @@ def handle_guess():
     verdict = boggle_game.check_valid_word(session["letters_board"], guessed_word)
     result = {"result": verdict}
     return jsonify(result)
-
-# Notes on @app.route above
-# In JS we will axios.get("/guess") --> this will return something like {"result": "ok"}
-# Next we'll use the ok, not-on-board, or not-a-word to determine how to modify HTML and game state
-
-# - LATER TO DO: check if word has already been guessed
-
